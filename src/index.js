@@ -3,7 +3,8 @@ const app= express();
 const dotenv=require('dotenv')
 dotenv.config();
 const mongoose=require('mongoose')
-const route= require('./routes/route')
+const route= require('./routes/route');
+const error = require('./middleware/error');
 
 mongoose.set('strictQuery', true); 
 
@@ -16,6 +17,8 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch((err) => {console.log(err.message)});
 
 app.use('/', route)  
+
+app.use(error)
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
