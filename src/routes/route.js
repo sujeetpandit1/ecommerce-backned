@@ -1,15 +1,22 @@
 const express= require('express')
+const { isAuthenticatedUser, authorizedRole } = require('../auth/auth')
 const { createProduct, getAllProduct, updateProduct, deleteProduct, getProductById } = require('../controllers/productController')
+const { registerUser, loginUser, logOut } = require('../controllers/userController')
 
 const router=express.Router()
 
 
-/**  ---------  API's ---------- **/
-router.post('/createProduct', createProduct) 
+/**  ---------  Product API's ---------- **/
+router.post('/createProduct', isAuthenticatedUser, authorizedRole("admin"), createProduct) 
 router.get('/getProducts', getAllProduct) 
 router.get('/getProductById/:id', getProductById) 
-router.put('/updateProduct/:id', updateProduct) 
-router.delete('/deleteProduct/:id', deleteProduct) 
+router.put('/updateProduct/:id', isAuthenticatedUser, authorizedRole("admin"), updateProduct) 
+router.delete('/deleteProduct/:id', isAuthenticatedUser, authorizedRole("admin"), deleteProduct) 
+
+/**  ---------  User API's ---------- **/
+router.post('/createUser', registerUser)
+router.post('/loginUser', loginUser)
+router.get('/logout', logOut)
 
 
 router.get('/testing', (_req, res) => {

@@ -5,10 +5,12 @@ dotenv.config();
 const mongoose=require('mongoose')
 const route= require('./routes/route');
 const error = require('./middleware/error');
+const cookieParser = require("cookie-parser")
 
 mongoose.set('strictQuery', true); 
 
 app.use(express.json()); 
+app.use(cookieParser())
 
 
 
