@@ -1,5 +1,6 @@
 const express= require('express')
 const { isAuthenticatedUser, authorizedRole } = require('../auth/auth')
+const { newOrder, myOrder, updateOrder } = require('../controllers/orderController')
 const { createProduct, getAllProduct, updateProduct, deleteProduct, getProductById } = require('../controllers/productController')
 const { registerUser, loginUser, logOut } = require('../controllers/userController')
 
@@ -17,6 +18,11 @@ router.delete('/deleteProduct/:id', isAuthenticatedUser, authorizedRole("admin")
 router.post('/createUser', registerUser)
 router.post('/loginUser', loginUser)
 router.get('/logout', logOut)
+
+/**  ---------  Order API's ---------- **/
+router.post('/newOrder', isAuthenticatedUser,newOrder)
+router.get('/myOrder', isAuthenticatedUser, myOrder);
+router.put('/updateOrder', isAuthenticatedUser, updateOrder);
 
 
 router.get('/testing', (_req, res) => {
