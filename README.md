@@ -28,9 +28,23 @@ npm run dev
 ::API Endpoints
 The following API endpoints are available for interacting with the backend:
 
-Product:-
-GET /api/products: Retrieve a list of all products
-GET /api/products/:id: Retrieve a single product by id
-POST /api/products: Add a new product
-PUT /api/products/:id: Update an existing product
-DELETE /api/products/:id: Delete a product
+/**  ---------  Product API's ---------- **/
+router.post('/createProduct', isAuthenticatedUser, authorizedRole("admin"), createProduct) : Add a new product
+router.get('/getProducts', getAllProduct) : Retrieve a list of all products
+router.get('/getProductById/:id', getProductById) : Retrieve a single product by id
+router.put('/updateProduct/:id', isAuthenticatedUser, authorizedRole("admin"), updateProduct) : Update an existing product
+router.delete('/deleteProduct/:id', isAuthenticatedUser, authorizedRole("admin"), deleteProduct) : Delete a produc
+
+/**  ---------  User API's ---------- **/
+router.post('/createUser', registerUser): Add a new user
+router.post('/loginUser', loginUser): Login user
+router.get('/logout', logOut) : Logout user
+
+/**  ---------  Order API's ---------- **/
+router.post('/newOrder', isAuthenticatedUser,newOrder): Place a new order
+router.get('/myOrder', isAuthenticatedUser, myOrder): Retrieve a list of all orders for the current user
+router.put('/updateOrder', isAuthenticatedUser, updateOrder): Update an existing data
+
+Built With
+Express - The web framework used
+MongoDB - The database used
