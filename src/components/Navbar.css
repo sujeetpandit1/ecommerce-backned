@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    text-decoration: none;
+
+}
+.navBar{
+    display: flex;
+    cursor: pointer;
+   
+}
+.logo{
+    text-decoration:wavy;
+    text-decoration-style: double;
+    font-weight: 300;
+    font-size: 30px;
+}
+.logo h3 span{
+    background: #a8281f;
+    color: #fff;
+    display: inline-block;
+    padding: 0 16px;
+}
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    font-size: 16px;
+    margin-left: 300px;
+  }
+  
+  .nav a {
+    text-decoration: none;
+    color: #8d8181;
+    margin-right: 30px;
+    font-size: larger;
+    font-weight: bold;
+  }
+  
+  .nav .cartCount {
+    font-weight: bold;
+    margin-left: 300px;
+  }
