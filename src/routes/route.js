@@ -7,6 +7,7 @@ const { registerUser, loginUser, logOut } = require('../controllers/userControll
 const router=express.Router()
 
 
+
 /**  ---------  Product API's ---------- **/
 router.post('/createProduct', isAuthenticatedUser, authorizedRole("admin"), createProduct) 
 router.get('/getProducts', getAllProduct) 
@@ -14,8 +15,8 @@ router.get('/getProductById/:id', getProductById)
 router.put('/updateProduct/:id', isAuthenticatedUser, authorizedRole("admin"), updateProduct) 
 router.delete('/deleteProduct/:id', isAuthenticatedUser, authorizedRole("admin"), deleteProduct) 
 
-/**  ---------  User API's ---------- **/
-router.post('/createUser', registerUser)
+/**  ---------  User API's ---------- **/  
+router.post('/createUser', registerUser) 
 router.post('/loginUser', loginUser)
 router.get('/logout', logOut)
 

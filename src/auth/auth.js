@@ -16,12 +16,12 @@ exports.isAuthenticatedUser = tryCatchError(async(req, res, next)=>{
     next();
 });
 
-exports.authorizedRole = (...role) =>{
-    return (req, res, next) =>{
-        if(!role.includes(req.user.role)){
-            return next (new ErrorHandler(`Role ${req.user.role} is not allowed to access`, 403)
-        )};
-        next();
-    }
-    
-};
+exports.authorizedRole = (...roles) => {
+    // console.log(roles); 
+    return (req, res, next) => {
+      if (req.user && req.user.role && !roles.includes(req.user.role)) {
+        return next(new ErrorHandler(`Role ${req.user.role} is not allowed to access.`, 403));
+      }
+      next();
+    };
+  };

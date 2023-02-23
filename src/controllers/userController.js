@@ -7,7 +7,7 @@ const sendToken = require('../utils/jwtToken');
 
 
 exports.registerUser = tryCatchError(async (req, res, next) => {
-    const {fullName, email, password, mobile} = req.body
+    const {fullName, email, password, mobile, role} = req.body
 
     if(!(/^\s*(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,15}\s*$/.test(password.trim()))) return res.status(400).send({status:false, message: "Pasword Should be in Alphanumeric and special character and length 8-15 digit only"});
     if (!/^[6789]\d{9}$/.test(mobile)) return res.status(400).send({status: false,msg: `${mobile} is not a valid mobile number, Please enter 10 digit phone number`});
@@ -17,7 +17,7 @@ exports.registerUser = tryCatchError(async (req, res, next) => {
     if(checkEmail) return res.status(400).send({status:false, message: `this ${email } is already registered, please enter new one or RESET Password`});
     const checkMobile= await userModel.findOne({mobile:mobile})
     if(checkMobile) return res.status(400).send({status:false, message: `this ${mobile} is already registered`});
-    const user = await userModel.create({fullName, email, password, mobile,avatar:{public_id: "this is sample",url: "this is sample url"}});
+    const user = await userModel.create({fullName, email, password, mobile,role,avatar:{public_id: "this is sample",url: "this is sample url"}});
     // const token = user.getJwtToken();
     // res.status(201).json({success: true, user, token})
     sendToken(user, 201, res)

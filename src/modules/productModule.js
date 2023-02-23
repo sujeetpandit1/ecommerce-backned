@@ -12,7 +12,7 @@ var productSchema = new mongoose.Schema({
         trim: true
     },
     price:{
-        type:Number,
+        type:mongoose.Schema.Types.Mixed,
         required:[true, "Please Enter Price"],
         maxLength:[8, " Price Cannot be exceed 8 length"],
     },

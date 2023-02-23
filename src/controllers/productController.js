@@ -9,6 +9,7 @@ exports.createProduct = tryCatchError(async (req, res, next) =>{
 });
 
 exports.getAllProduct = tryCatchError(async (_req, res, _next) =>{
+    res.setHeader('Access-Control-Allow-Origin', '*')
     const product = await productModel.find()
     res.status(200).json({success: true, count:product.length, product})
 });

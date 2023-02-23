@@ -6,19 +6,22 @@ const mongoose=require('mongoose')
 const route= require('./routes/route');
 const error = require('./middleware/error');
 const cookieParser = require("cookie-parser")
+const cors = require('cors')
+
+
 
 mongoose.set('strictQuery', true); 
 
 app.use(express.json()); 
-app.use(cookieParser())
-
+app.use(cookieParser());
 
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {console.log('MongoDB is Connected')})
   .catch((err) => {console.log(err.message)});
 
-app.use('/', route)  
+app.use('/', route)
+app.use(cors())  
 
 app.use(error)
 

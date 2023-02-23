@@ -8,7 +8,7 @@ const options = {
   expires,
   httpOnly: true
 };
-console.log(options);
+// console.log(options);
 
     res.status(statusCode).cookie('token', token, options).json({success: true, user, token})
 }
