@@ -6,13 +6,19 @@
 .navBar{
     display: flex;
     cursor: pointer;
-   
+    overflow: hidden;
+    position: fixed; 
+    background-color: aquamarine;
+    top: 0; 
+    width: 100%;
+    margin-left: -1.3rem;
 }
 .logo{
     text-decoration:wavy;
     text-decoration-style: double;
     font-weight: 300;
     font-size: 30px;
+    margin-left: 6rem;
 }
 .logo h3 span{
     background: #a8281f;

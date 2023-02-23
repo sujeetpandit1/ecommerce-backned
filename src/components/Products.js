@@ -7,14 +7,31 @@ const Products = () => {
     const dispatch = useDispatch();
 
     const [products, setProducts] = useState([])
+    const [quantity, setQuantity] = useState(1);
+    const increaseQuantity = () => {
+      if (products.Stock <= quantity) return;
+  
+      const qty = quantity + 1;
+      setQuantity(qty);
+    };
+  
+    const decreaseQuantity = () => {
+      if (1 >= quantity) return;
+  
+      const qty = quantity - 1;
+      setQuantity(qty);
+    };
+    const addToCartHandler = () => {
+      dispatch(add(products));
+    };
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('https://fakestoreapi.com/products');
+        const res = await fetch('http://localhost:4000/getProducts');
         const data = await res.json();
         console.log(data);
 
-        setProducts(data)
+        setProducts(data.product)
       } catch (error) {
         console.error('Error fetching products:', error);
       }
@@ -23,33 +40,33 @@ const Products = () => {
     fetchProducts();
   }, []);
 
-  const handleAdd = (product)=>{
-    dispatch(add(product))
-  }
-
   return <div className='productsWrapper'>
   {
-    products.map(product =>(
-        <div className='card' key={product.id}>
-        <img src={product.image} alt="" />
-        <h4>{product.title}</h4>
-        <h5>{product.price}</h5>
-        <div>-</div>
-        <input value="1" type="number" />
-        <div>+</div>
-        <div>{" "}
-        <button onClick={()=> handleAdd(product)} className='btn'> Add To cart</button>
-        </div>
-        <p>
-        Status:{" "}
-        <b className={product.stock < 1 ? "redColor": "greenColor"}>
-        {product.stock < 1 ? "Out of Stock": "In Stock"}</b>
-        </p>
-        </div>
-        
-    ))
+      Array.isArray(products) ? (
+          products.map((product) => (
+              <div className='card' key={product._id}>
+              <img src={product.images[0].url} alt="" />
+                  <h4>{product.name}</h4>
+                  <h5> Rs. {product.price}</h5>
+                  <div className='counter'>
+                      <button onClick={decreaseQuantity}>-</button>
+                      <input readOnly type="number" value={quantity}/>
+                      <button onClick={increaseQuantity}>+</button>
+                  </div>
+                  <div><br/>
+                      <button disabled={product.Stock < 1 ? true : false} onClick={addToCartHandler}> Add To cart</button>
+                  </div>
+                  <p>
+                      Status:{" "}
+                      <b>{product.stock < 1 ? "Out of Stock": "In Stock"}</b>
+                  </p>
+              </div>
+          ))
+      ) : (
+          <p>Loading...</p>
+      )
   }
-  </div>;
+</div>;
 };
 
 export default Products;

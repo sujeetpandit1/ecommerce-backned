@@ -23,6 +23,16 @@ body {
 .productsWrapper img{
   height: 80px;
 }
+.productsWrapper input{
+  height: 15px;
+  width: 30px;
+}
+.counter{
+  size: 3rem;
+}
+
+
+
 
 .btn {
   border: none;
@@ -66,4 +76,8 @@ body {
 .cartCard img{
   height: 80px;
 }
-
+.emptyCart{
+  margin-top: 10rem;
+  font-size: larger;
+  font-size: xx-large;
+}
